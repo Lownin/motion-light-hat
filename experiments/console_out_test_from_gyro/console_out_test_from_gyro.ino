@@ -23,11 +23,11 @@ void setup() {
 void loop() {
   gyro.read();
   this_time=millis();
+  delay(10);
   diff_time=this_time-last_time;
   last_time=this_time;
-  if (gyro.g.x>200||gyro.g.x<-200)
-    {pos+=diff_time*gyro.g.x/92160;}
+  if (gyro.g.z>300||gyro.g.z<-200)
+    {pos+=diff_time*gyro.g.z;}
   Serial.print("Z: "); Serial.print(gyro.g.z);   Serial.print(" ");
   Serial.print("POS: "); Serial.println(pos);   Serial.print(" ");
-  delay(10);
 }
