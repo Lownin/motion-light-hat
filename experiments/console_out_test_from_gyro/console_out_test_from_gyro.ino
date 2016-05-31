@@ -3,7 +3,7 @@
 
 L3G gyro;
 
-float pos=0;
+int pos=0;
 unsigned long last_time, this_time, diff_time;
 
 void setup() {
@@ -25,11 +25,9 @@ void loop() {
   this_time=millis();
   diff_time=this_time-last_time;
   last_time=this_time;
-  if (gyro.g.z<1100)
-    {pos-=diff_time*gyro.g.z/92160;}
-  if (gyro.g.z>1100)
-    {pos+=diff_time*gyro.g.z/92160;}
-  Serial.print("Z: "); Serial.print((int)gyro.g.z);   Serial.print(" ");
-  Serial.print("POS: "); Serial.println((float)pos);   Serial.print(" ");
+  if (gyro.g.x>200||gyro.g.x<-200)
+    {pos+=diff_time*gyro.g.x;}
+  Serial.print("Z: "); Serial.print(gyro.g.z);   Serial.print(" ");
+  Serial.print("POS: "); Serial.println(pos);   Serial.print(" ");
   delay(10);
 }
