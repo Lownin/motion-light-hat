@@ -55,7 +55,7 @@ void rainbowCycle(uint8_t wait) {
   diff_time=this_time-last_time;
   last_time=this_time;
   if (gyro.g.z>300||gyro.g.z<-200)
-    {pos+=diff_time*gyro.g.z;}
+    {pos-=diff_time*gyro.g.z;}
   pos256=pos/156250;
   Serial.print("Z: "); Serial.print(gyro.g.z);   Serial.print(" ");
   Serial.print("POS: "); Serial.print(pos);   Serial.print(" ");
