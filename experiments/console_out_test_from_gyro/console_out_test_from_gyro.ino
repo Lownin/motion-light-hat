@@ -4,6 +4,7 @@
 L3G gyro;
 
 int pos=0;
+int pos256=0;
 unsigned long last_time, this_time, diff_time;
 
 void setup() {
@@ -28,6 +29,8 @@ void loop() {
   last_time=this_time;
   if (gyro.g.z>300||gyro.g.z<-200)
     {pos+=diff_time*gyro.g.z;}
+  pos256=pos/156250;
   Serial.print("Z: "); Serial.print(gyro.g.z);   Serial.print(" ");
-  Serial.print("POS: "); Serial.println(pos);   Serial.print(" ");
+  Serial.print("POS: "); Serial.print(pos);   Serial.print(" ");
+  Serial.print("POS256: "); Serial.println(pos256);   Serial.print(" ");
 }
