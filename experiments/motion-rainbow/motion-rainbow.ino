@@ -27,6 +27,7 @@ int pos256=0;
 unsigned long last_time, this_time, diff_time;
 
 void setup() {
+  pinMode(9, INPUT_PULLUP);
   while (!Serial && (millis ()  <= 3000)) ;
   Serial.begin(9600);
   Wire.begin();
@@ -44,10 +45,15 @@ void setup() {
 }
 
 void loop() {
-  rainbowCycle(20);
+  if (digitalRead(9) == HIGH) {
+    rainbowCycle();
+  } 
+  else {
+    Serial.println("Button pressed!!!");
+  }
 }
 
-void rainbowCycle(uint8_t wait) {
+void rainbowCycle() {
   uint16_t i;
   gyro.read();
   this_time=millis();
