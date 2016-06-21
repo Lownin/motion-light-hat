@@ -3,7 +3,7 @@
 #include <Adafruit_NeoPixel.h>
 
 
-#define PIN 6
+#define PIN 7
 
 L3G gyro;
 
@@ -15,7 +15,7 @@ L3G gyro;
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(39, PIN, NEO_GRB + NEO_KHZ800);
 
 // IMPORTANT: To reduce NeoPixel burnout risk, add 1000 uF capacitor across
 // pixel power leads, add 300 - 500 Ohm resistor on first pixel's data input
@@ -61,7 +61,7 @@ void rainbowCycle() {
   diff_time=this_time-last_time;
   last_time=this_time;
   if (gyro.g.z>300||gyro.g.z<-200)
-    {pos-=diff_time*gyro.g.z;}
+    {pos+=diff_time*gyro.g.z;}
   pos256=pos/156250;
   Serial.print("Z: "); Serial.print(gyro.g.z);   Serial.print(" ");
   Serial.print("POS: "); Serial.print(pos);   Serial.print(" ");
