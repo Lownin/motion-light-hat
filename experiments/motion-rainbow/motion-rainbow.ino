@@ -2,7 +2,6 @@
 #include <L3G.h>
 #include <Adafruit_NeoPixel.h>
 
-
 #define PIN 7
 
 L3G gyro;
@@ -22,12 +21,16 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(39, PIN, NEO_GRB + NEO_KHZ800);
 // and minimize distance between Arduino and first pixel.  Avoid connecting
 // on a live circuit...if you must, connect GND first.
 
+int led = 13;
 int pos=0;
 int pos256=0;
 unsigned long last_time, this_time, diff_time;
 
 void setup() {
   pinMode(9, INPUT_PULLUP);
+  // initialize the digital pin connected to teensy LED as an output.
+  pinMode(led, OUTPUT);
+  digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
   while (!Serial && (millis ()  <= 3000)) ;
   Serial.begin(9600);
   Wire.begin();
@@ -46,9 +49,11 @@ void setup() {
 
 void loop() {
   if (digitalRead(9) == HIGH) {
+    digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
     rainbowCycle();
   } 
   else {
+    digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
     Serial.println("Button pressed!!!");
   }
 }
@@ -60,8 +65,8 @@ void rainbowCycle() {
   delay(10);
   diff_time=this_time-last_time;
   last_time=this_time;
-  if (gyro.g.z>300||gyro.g.z<-200)
-    {pos+=diff_time*gyro.g.z;}
+  if (gyro.g.z>250||gyro.g.z<-20)
+    {pos+=diff_time*gyro.g.z*5;}
   pos256=pos/156250;
   Serial.print("Z: "); Serial.print(gyro.g.z);   Serial.print(" ");
   Serial.print("POS: "); Serial.print(pos);   Serial.print(" ");
