@@ -65,10 +65,10 @@ void rainbowCycle() {
   delay(10);
   diff_time=this_time-last_time;
   last_time=this_time;
-  if (gyro.g.z>250||gyro.g.z<-20)
-    {pos+=diff_time*gyro.g.z*5;}
+  if (gyro.g.y>0 ||gyro.g.y<-700)
+    {pos+=diff_time*gyro.g.y*5;}
   pos256=pos/156250;
-  Serial.print("Z: "); Serial.print(gyro.g.z);   Serial.print(" ");
+  Serial.print("Y: "); Serial.print(gyro.g.y);   Serial.print(" ");
   Serial.print("POS: "); Serial.print(pos);   Serial.print(" ");
   Serial.print("POS256: "); Serial.println(pos256);   Serial.print(" ");
 
